@@ -18,9 +18,9 @@ public class ImageService {
 
     public Image addImage(Integer blogId, String description, String dimensions){
         //add an image to the blog
-//        if(!blogRepository2.findById(blogId).isPresent()) {
-//            throw new Exception();
-//        }
+        if(!blogRepository2.findById(blogId).isPresent()) {
+            return null;
+        }
         Blog blog = blogRepository2.findById(blogId).get();
         Image image = new Image(blog,description,dimensions);
         blog.getImageList().add(image);
@@ -30,21 +30,6 @@ public class ImageService {
     }
 
     public void deleteImage(Integer id){
-        Image image = imageRepository2.findById(id).get();
-        if(image == null){
-            return;
-        }
-        Blog blog = image.getBlog();
-        List<Image> imageList = blog.getImageList();
-        List<Image> newImageList = new ArrayList<>();
-        for(Image i : imageList){
-            if(i.equals(image)){
-                continue;
-            }
-            newImageList.add(i);
-        }
-        blog.setImageList(newImageList);
-        blogRepository2.save(blog);
         imageRepository2.deleteById(id);
     }
 
@@ -63,7 +48,9 @@ public class ImageService {
         int imgb = Integer.parseInt(imgarray[1]);
 
         return no_Images(scrl,scrb,imgl,imgb);
+
     }
+
     private int no_Images(int scrl, int scrb, int imgl, int imgb) {
         int lenC = scrl/imgl;
         int lenB = scrb/imgb;
