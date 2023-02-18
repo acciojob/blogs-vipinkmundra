@@ -19,6 +19,9 @@ public class ImageService {
     public Image addImage(Integer blogId, String description, String dimensions){
         //add an image to the blog
         Blog blog = blogRepository2.findById(blogId).get();
+        if(blog == null){
+            return null;
+        }
         Image image = new Image();
         image.setBlog(blog);
         image.setDescription(description);
@@ -30,6 +33,9 @@ public class ImageService {
 
     public void deleteImage(Integer id){
         Image image = imageRepository2.findById(id).get();
+        if(image == null){
+            return;
+        }
         Blog blog = image.getBlog();
         List<Image> imageList = blog.getImageList();
         List<Image> newImageList = new ArrayList<>();
@@ -48,6 +54,9 @@ public class ImageService {
         //Find the number of images of given dimensions that can fit in a screen having `screenDimensions`
         int count = 0;
         Image image = imageRepository2.findById(id).get();
+        if(image == null){
+            return 0;
+        }
         Blog blog = image.getBlog();
         List<Image> imageList = blog.getImageList();
         for(Image i : imageList){
