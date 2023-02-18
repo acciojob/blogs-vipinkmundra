@@ -28,9 +28,9 @@ public class BlogService {
         blog.setTitle(title);
 
         User user = userRepository1.findById(userId).get();
-        List<Blog> blogList = user.getBlogs();
+        List<Blog> blogList = user.getBlogList();
         blogList.add(blog);
-        user.setBlogs(blogList);
+        user.setBlogList(blogList);
 
         blog.setUser(user);
         blogRepository1.save(blog);
@@ -42,7 +42,7 @@ public class BlogService {
         Blog blog = blogRepository1.findById(blogId).get();
         blogRepository1.deleteById(blogId);
         User user = blog.getUser();
-        List<Blog> blogList = user.getBlogs();
+        List<Blog> blogList = user.getBlogList();
         List<Blog> newBlogList = new ArrayList<>();
         for(Blog b : blogList){
             if(b.equals(blog)){
@@ -50,7 +50,7 @@ public class BlogService {
             }
             newBlogList.add(blog);
         }
-        user.setBlogs(newBlogList);
+        user.setBlogList(newBlogList);
         userRepository1.save(user);
     }
 }
