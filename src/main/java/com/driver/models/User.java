@@ -10,10 +10,12 @@ public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String username;
     private String password;
-    private String firstName;
-    private String lastName;
+    private String firstName = "test";
+    private String lastName = "test";
+
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     List<Blog> blogList = new ArrayList<>();

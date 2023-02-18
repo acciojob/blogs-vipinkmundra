@@ -60,7 +60,7 @@ public class ImageService {
         Blog blog = image.getBlog();
         List<Image> imageList = blog.getImageList();
         for(Image i : imageList){
-            if(i.getDimensions() == screenDimensions){
+            if(i.getDimensions().equals(screenDimensions)){
                 count++;
             }
         }
