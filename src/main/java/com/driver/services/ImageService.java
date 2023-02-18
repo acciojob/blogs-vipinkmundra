@@ -18,19 +18,15 @@ public class ImageService {
 
     public Image addImage(Integer blogId, String description, String dimensions) throws Exception{
         //add an image to the blog
-        Blog blog = blogRepository2.findById(blogId).get();
-        if(blog == null){
+        if(!blogRepository2.findById(blogId).isPresent()) {
             throw new Exception();
         }
-        Image image = new Image();
-        image.setBlog(blog);
-        image.setDescription(description);
-        image.setDimensions(dimensions);
-
+        Blog blog = blogRepository2.findById(blogId).get();
+        Image image = new Image(blog,description,dimensions);
         blog.getImageList().add(image);
-
-        imageRepository2.save(image);
+        blogRepository2.save(blog);
         return image;
+        //Here I am not explicitly adding image in image-repository because due to cascading effect
     }
 
     public void deleteImage(Integer id){
