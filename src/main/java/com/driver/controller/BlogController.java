@@ -19,7 +19,7 @@ public class BlogController {
     @PostMapping
     public ResponseEntity createBlog(@RequestParam Integer userId ,
                                      @RequestParam String title,
-                                     @RequestParam String content) throws Exception{
+                                     @RequestParam String content){
         // Create a blog and add it under given user
         blogService.createAndReturnBlog(userId, title, content);
         return new ResponseEntity<>(HttpStatus.CREATED);
